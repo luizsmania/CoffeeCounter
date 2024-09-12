@@ -30,13 +30,16 @@ function addCoffee() {
     const coffeeDetails = {
         coffee: selectedCoffee || 'No Coffee Selected',
         milk: selectedMilk || 'Regular Milk',
-        syrup: selectedSyrup || ''
+        syrup: selectedSyrup || ''  // Empty string if no syrup is selected
     };
 
     coffeeList.push(coffeeDetails);
     updateCoffeeList();
     saveCoffeeList();
     resetSelections();
+
+    // Scroll to the top of the page
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function resetSelections() {
@@ -56,7 +59,9 @@ function updateCoffeeList() {
     // Update the <h2> element with the count of total coffees made
     coffeeCountElement.textContent = `Recent Coffees - Total: ${coffeeList.length}`;
 
-    const recentCoffees = coffeeList.slice(-999); // show only last 10
+    // Slice the last 10 coffees and reverse them to show the most recent at the top
+    const recentCoffees = coffeeList.slice(-10).reverse();
+
     recentCoffees.forEach(coffee => {
         let listItemText = `${coffee.coffee}`;
 
@@ -75,6 +80,7 @@ function updateCoffeeList() {
         coffeeListElement.appendChild(listItem);
     });
 }
+
 
 
 
