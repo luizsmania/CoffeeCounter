@@ -27,10 +27,20 @@
             font-size: 24px;
             cursor: pointer;
             text-align: center;
+            background-color: #dddddd; /* Default button color */
+            color: rgb(0, 0, 0);
+            border: none;
+            border-radius: 5px;
+        }
+        .button.selected {
+            background-color: #2e8b57; /* Dark green when selected */
         }
         .button.full-width {
             width: 98%; /* Full width for 'Enter' button */
             margin: 10px 0;
+        }
+        .controls {
+            margin-top: 30px;
         }
         h2 {
             margin-top: 30px;
@@ -48,34 +58,32 @@
 <body>
     <div class="options">
         <h2>Select Coffee Type</h2>
-        <button class="button" onclick="selectOption('Latte')">Latte</button>
-        <button class="button" onclick="selectOption('Cappuccino')">Cappuccino</button>
-        <button class="button" onclick="selectOption('Flat White')">Flat White</button>
-        <button class="button" onclick="selectOption('Double Espresso')">Double Espresso</button>
-        <button class="button" onclick="selectOption('Single Espresso')">Single Espresso</button>
-        <button class="button" onclick="selectOption('Matcha Latte')">Matcha Latte</button>
-        <button class="button" onclick="selectOption('Chai Latte')">Chai Latte</button>
-        <button class="button" onclick="selectOption('Hot Chocolate')">Hot Chocolate</button>
-        <button class="button" onclick="selectOption('Mocha')">Mocha</button>
-        <button class="button" onclick="selectOption('Tea')">Tea</button>
-        <button class="button" onclick="selectOption('Iced Latte')">Iced Latte</button>
-        <button class="button" onclick="selectOption('Iced Americano')">Iced Americano</button>
-        <button class="button" onclick="selectOption('Vietnamese')">Vietnamese</button>
-        <button class="button" onclick="selectOption('Afogatto')">Afogatto</button>
-
+            <button class="button coffee" onclick="selectOption('Latte', 'coffee', this)">Latte</button>
+            <button class="button coffee" onclick="selectOption('Cappuccino', 'coffee', this)">Cappuccino</button>
+            <button class="button coffee" onclick="selectOption('Flat White', 'coffee', this)">Flat White</button>
+            <button class="button coffee" onclick="selectOption('Double Espresso', 'coffee', this)">Double Espresso</button>
+            <button class="button coffee" onclick="selectOption('Single Espresso', 'coffee', this)">Single Espresso</button>
+            <button class="button coffee" onclick="selectOption('Matcha Latte', 'coffee', this)">Matcha Latte</button>
+            <button class="button coffee" onclick="selectOption('Chai Latte', 'coffee', this)">Chai Latte</button>
+            <button class="button coffee" onclick="selectOption('Hot Chocolate', 'coffee', this)">Hot Chocolate</button>
+            <button class="button coffee" onclick="selectOption('Mocha', 'coffee', this)">Mocha</button>
+            <button class="button coffee" onclick="selectOption('Tea', 'coffee', this)">Tea</button>
+            <button class="button coffee" onclick="selectOption('Iced Latte', 'coffee', this)">Iced Latte</button>
+            <button class="button coffee" onclick="selectOption('Iced Americano', 'coffee', this)">Iced Americano</button>
+            <button class="button coffee" onclick="selectOption('Vietnamese', 'coffee', this)">Vietnamese</button>
+            <button class="button coffee" onclick="selectOption('Afogatto', 'coffee', this)">Afogatto</button>
         <h2>Select Milk Type</h2>
-        <button class="button" onclick="selectOption('Oat Milk')">Oat Milk</button>
-        <button class="button" onclick="selectOption('Coconut Milk')">Coconut Milk</button>
-        <button class="button" onclick="selectOption('Almond Milk')">Almond Milk</button>
-
+        <button class="button milk" onclick="selectOption('Oat Milk', 'milk', this)">Oat Milk</button>
+        <button class="button milk" onclick="selectOption('Coconut Milk', 'milk', this)">Coconut Milk</button>
+	<button class="button milk" onclick="selectOption('Almond Milk', 'milk', this)">Almond Milk</button>
+        <!-- Add other milk buttons similarly -->
         <h2>Select Syrup (Optional)</h2>
-        <button class="button" onclick="selectOption('Caramel')">Caramel</button>
-        <button class="button" onclick="selectOption('Hazelnut')">Hazelnut</button>
-        <button class="button" onclick="selectOption('Vanilla')">Vanilla</button>
-        
+        <button class="button syrup" onclick="selectOption('Caramel', 'syrup', this)">Caramel</button>
+        <button class="button syrup" onclick="selectOption('Hazelnut', 'syrup', this)">Hazelnut</button>
+	<button class="button syrup" onclick="selectOption('Vanilla', 'syrup', this)">Vanilla</button>
+        <!-- Add other syrup buttons similarly -->
         <button class="button full-width" onclick="addCoffee()">Enter</button>
-
-                <div class="controls">
+        <div class="controls">
             <button class="button full-width" onclick="exportData()">Export Data</button>
             <button class="button full-width" onclick="confirmResetDay()">Reset Day</button>
         </div>

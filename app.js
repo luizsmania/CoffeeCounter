@@ -3,34 +3,49 @@ let selectedMilk = '';
 let selectedSyrup = '';
 let coffeeList = [];
 
-function selectOption(option) {
-    if (option.includes('Latte') || option.includes('Cappuccino') || 
-        option.includes('Flat White') || option.includes('Americano') || 
-        option.includes('Double Espresso') || option.includes('Single Espresso') || 
-        option.includes('Matcha Latte') || option.includes('Chai Latte') || 
-        option.includes('Hot Chocolate') || option.includes('Mocha') || 
-        option.includes('Tea') || option.includes('Iced Latte') || 
-        option.includes('Iced Americano') || option.includes('Vietnamese') || 
-        option.includes('Afogatto')) {
+// Load the saved coffee list from localStorage when the page is loaded
+window.onload = function() {
+    loadCoffeeList();
+    updateCoffeeList();
+};
+
+function selectOption(option, category, button) {
+    // Remove 'selected' class from all buttons in the same category
+    document.querySelectorAll(`.${category}`).forEach(btn => btn.classList.remove('selected'));
+
+    // Add 'selected' class to the clicked button
+    button.classList.add('selected');
+
+    // Update selected values based on category
+    if (category === 'coffee') {
         selectedCoffee = option;
-    } else if (option.includes('Milk')) {
+    } else if (category === 'milk') {
         selectedMilk = option;
-    } else {
+    } else if (category === 'syrup') {
         selectedSyrup = option;
     }
 }
 
-
 function addCoffee() {
     const coffeeDetails = {
-        coffee: selectedCoffee || 'No Coffee Selected',  // Defaults to "No Coffee Selected"
-        milk: selectedMilk || 'Regular Milk',            // Defaults to "Regular Milk"
-        syrup: selectedSyrup || 'No Syrup'               // Defaults to "No Syrup"
+        coffee: selectedCoffee || 'No Coffee Selected',
+        milk: selectedMilk || 'Regular Milk',
+        syrup: selectedSyrup || 'No Syrup'
     };
 
     coffeeList.push(coffeeDetails);
     updateCoffeeList();
+    saveCoffeeList();
     resetSelections();
+}
+
+function resetSelections() {
+    selectedCoffee = '';
+    selectedMilk = '';
+    selectedSyrup = '';
+
+    // Remove the 'selected' class from all buttons
+    document.querySelectorAll('.button').forEach(btn => btn.classList.remove('selected'));
 }
 
 function updateCoffeeList() {
@@ -45,63 +60,46 @@ function updateCoffeeList() {
     });
 }
 
-function resetSelections() {
-    selectedCoffee = '';
-    selectedMilk = '';
-    selectedSyrup = '';
+// Save the coffee list to localStorage
+function saveCoffeeList() {
+    localStorage.setItem('coffeeList', JSON.stringify(coffeeList));
 }
 
-// Function to export data as CSV
+// Load the coffee list from localStorage
+function loadCoffeeList() {
+    const savedCoffeeList = localStorage.getItem('coffeeList');
+    if (savedCoffeeList) {
+        coffeeList = JSON.parse(savedCoffeeList);
+    }
+}
+
+// Export data as CSV
 function exportData() {
     let coffeeCount = {};
     let milkCount = {};
     let syrupCount = {};
 
-    // Count occurrences of each coffee, milk, and syrup
     coffeeList.forEach(function(row) {
-        // Count coffee types
-        if (coffeeCount[row.coffee]) {
-            coffeeCount[row.coffee]++;
-        } else {
-            coffeeCount[row.coffee] = 1;
-        }
-
-        // Count milk types
-        if (milkCount[row.milk]) {
-            milkCount[row.milk]++;
-        } else {
-            milkCount[row.milk] = 1;
-        }
-
-        // Count syrup types
-        if (syrupCount[row.syrup]) {
-            syrupCount[row.syrup]++;
-        } else {
-            syrupCount[row.syrup] = 1;
-        }
+        coffeeCount[row.coffee] = (coffeeCount[row.coffee] || 0) + 1;
+        milkCount[row.milk] = (milkCount[row.milk] || 0) + 1;
+        syrupCount[row.syrup] = (syrupCount[row.syrup] || 0) + 1;
     });
 
-    // Create CSV content
     let csvContent = "data:text/csv;charset=utf-8,Coffee,Count\n";
-
-    // Add coffee counts to CSV
     for (const coffee in coffeeCount) {
         csvContent += `${coffee},${coffeeCount[coffee]}\n`;
     }
 
-    // Add a separator and milk counts to CSV
     csvContent += "\nMilk,Count\n";
     for (const milk in milkCount) {
         csvContent += `${milk},${milkCount[milk]}\n`;
     }
 
-    // Add a separator and syrup counts to CSV
     csvContent += "\nSyrup,Count\n";
     for (const syrup in syrupCount) {
         csvContent += `${syrup},${syrupCount[syrup]}\n`;
     }
 
-    // Encode CSV content and create download link
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
@@ -110,8 +108,7 @@ function exportData() {
     link.click();
 }
 
-
-// Function to confirm and reset the day
+// Confirm and reset the day
 function confirmResetDay() {
     const confirmation = confirm("Are you sure you want to reset the day? This will clear all records.");
     if (confirmation) {
@@ -119,8 +116,9 @@ function confirmResetDay() {
     }
 }
 
-// Function to reset the day's data
+// Reset the day's data
 function resetDay() {
     coffeeList = [];
     updateCoffeeList();
+    saveCoffeeList(); // Save the reset state
 }
