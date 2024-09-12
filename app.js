@@ -30,7 +30,7 @@ function addCoffee() {
     const coffeeDetails = {
         coffee: selectedCoffee || 'No Coffee Selected',
         milk: selectedMilk || 'Regular Milk',
-        syrup: selectedSyrup || 'No Syrup'
+        syrup: selectedSyrup || ''
     };
 
     coffeeList.push(coffeeDetails);
@@ -54,11 +54,25 @@ function updateCoffeeList() {
 
     const recentCoffees = coffeeList.slice(-10); // show only last 10
     recentCoffees.forEach(coffee => {
+        let listItemText = `${coffee.coffee}`;
+
+        // Check if milk is present and not "Regular Milk"
+        if (coffee.milk && coffee.milk !== 'Regular Milk') {
+            listItemText += ` with ${coffee.milk}`;
+        }
+
+        // Check if syrup is present and not "No Syrup"
+        if (coffee.syrup && coffee.syrup !== 'No Syrup') {
+            listItemText += ` and ${coffee.syrup}`;
+        }
+
         const listItem = document.createElement('li');
-        listItem.textContent = `${coffee.coffee} with ${coffee.milk} and ${coffee.syrup}`;
+        listItem.textContent = listItemText;
         coffeeListElement.appendChild(listItem);
     });
 }
+
+
 
 // Save the coffee list to localStorage
 function saveCoffeeList() {
