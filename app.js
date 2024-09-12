@@ -89,7 +89,7 @@ function updateCoffeeList() {
     coffeeCountElement.textContent = `Recent Coffees - Total: ${coffeeList.length}`;
 
     // Slice the last 10 coffees and reverse them to show the most recent at the top
-    const recentCoffees = coffeeList.slice(-10).reverse();
+    const recentCoffees = coffeeList.slice(-999).reverse();
 
     recentCoffees.forEach((coffee, index) => {
         let listItemText = `${coffee.coffee}`;
