@@ -9,20 +9,32 @@ window.onload = function() {
     updateCoffeeList();
 };
 
-function selectOption(option, category, button) {
-    // Remove 'selected' class from all buttons in the same category
-    document.querySelectorAll(`.${category}`).forEach(btn => btn.classList.remove('selected'));
-
-    // Add 'selected' class to the clicked button
-    button.classList.add('selected');
-
-    // Update selected values based on category
-    if (category === 'coffee') {
-        selectedCoffee = option;
-    } else if (category === 'milk') {
-        selectedMilk = option;
-    } else if (category === 'syrup') {
-        selectedSyrup = option;
+function selectOption(option, category, buttonElement) {
+    // Toggle the 'selected' class on the clicked button
+    if (buttonElement.classList.contains('selected')) {
+        buttonElement.classList.remove('selected');
+        
+        // Unselect the option by setting the category variable to an empty string
+        if (category === 'coffee') {
+            selectedCoffee = '';
+        } else if (category === 'milk') {
+            selectedMilk = '';
+        } else if (category === 'syrup') {
+            selectedSyrup = '';
+        }
+    } else {
+        // Deselect any previously selected buttons in the same category
+        document.querySelectorAll(`.button.${category}`).forEach(btn => btn.classList.remove('selected'));
+        
+        // Select the clicked button and update the selected option
+        buttonElement.classList.add('selected');
+        if (category === 'coffee') {
+            selectedCoffee = option;
+        } else if (category === 'milk') {
+            selectedMilk = option;
+        } else if (category === 'syrup') {
+            selectedSyrup = option;
+        }
     }
 }
 
@@ -42,6 +54,23 @@ function addCoffee() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+function removeCoffee(index) {
+    // Show a confirmation dialog before deleting
+    const confirmDelete = confirm("Are you sure you want to delete this coffee?");
+    
+    if (confirmDelete) {
+        // Remove the coffee from the array
+        coffeeList.splice(index, 1);
+
+        // Update the coffee list display
+        updateCoffeeList();
+
+        // Optionally save the updated coffee list if persistence is needed
+        saveCoffeeList();
+    }
+}
+
+
 function resetSelections() {
     selectedCoffee = '';
     selectedMilk = '';
@@ -53,47 +82,37 @@ function resetSelections() {
 
 function updateCoffeeList() {
     const coffeeListElement = document.getElementById('coffeeList');
-    const coffeeCountElement = document.getElementById('coffeeCount'); // Reference to <h2> element
+    const coffeeCountElement = document.getElementById('coffeeCount');
     coffeeListElement.innerHTML = '';
 
     // Update the <h2> element with the count of total coffees made
     coffeeCountElement.textContent = `Recent Coffees - Total: ${coffeeList.length}`;
 
     // Slice the last 10 coffees and reverse them to show the most recent at the top
-    const recentCoffees = coffeeList.slice(-999).reverse();
+    const recentCoffees = coffeeList.slice(-10).reverse();
 
-    recentCoffees.forEach(coffee => {
-        // Start with the coffee type
-        let listItemText = coffee.coffee;
+    recentCoffees.forEach((coffee, index) => {
+        let listItemText = `${coffee.coffee}`;
 
-        // Add milk if present and not "Regular Milk"
+        // Check if milk is present and not "Regular Milk"
         if (coffee.milk && coffee.milk !== 'Regular Milk') {
             listItemText += ` with ${coffee.milk}`;
         }
 
-        // Add syrup if present and not "No Syrup"
+        // Check if syrup is present and not "No Syrup"
         if (coffee.syrup && coffee.syrup !== 'No Syrup') {
             listItemText += ` and ${coffee.syrup}`;
         }
 
-        // Create a new <li> element
         const listItem = document.createElement('li');
+        listItem.innerHTML = `
+            ${listItemText}
+            <span style="font-size: 0.7em; color: rgba(0, 0, 0, 0.6); display: block; margin-top: 1px;">
+                at ${coffee.time}
+            </span>
+            <button onclick="removeCoffee(${coffeeList.length - 1 - index})" style="margin-left: 10px; padding: 3px 5px; background-color: red; color: white; border: none; border-radius: 3px; cursor: pointer;">Delete</button>
+        `;
 
-        // Add the text content
-        listItem.innerHTML = listItemText;
-
-        // Add the time when the coffee was made, styled separately
-        if (coffee.time) {
-            const timeText = document.createElement('span');
-            timeText.textContent = ` at ${coffee.time}`;
-            timeText.style.fontSize = '0.7em'; // Smaller font size
-            timeText.style.color = 'rgba(0, 0, 0, 0.65)'; // Less opacity
-            timeText.style.display = 'block'; // New line
-            timeText.style.marginTop = '1px'; // Space above the time
-            listItem.appendChild(timeText);
-        }
-
-        // Append the list item to the coffee list
         coffeeListElement.appendChild(listItem);
     });
 }
