@@ -110,7 +110,7 @@ function updateCoffeeList() {
             <span style="font-size: 0.7em; color: rgba(0, 0, 0, 0.6); display: block; margin-top: 1px;">
                 at ${coffee.time}
             </span>
-            <button onclick="removeCoffee(${coffeeList.length - 1 - index})" style="margin-left: 10px; padding: 3px 5px; background-color: red; color: white; border: none; border-radius: 3px; cursor: pointer;">Delete</button>
+            <button onclick="removeCoffee(${coffeeList.length - 1 - index})" style="font-family: Serif; font-size: 0.65em; margin-left: 0px; padding: 4px 8px; background-color: rgba(255, 0, 0, 0.5); color: black; border: 0px solid; border-radius: 3px; cursor: pointer;">Delete</button>
         `;
 
         coffeeListElement.appendChild(listItem);

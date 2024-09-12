@@ -10,11 +10,13 @@
             display: flex;
             justify-content: space-between;
             padding: 20px;
+            background-color: rgba(255, 214, 144, 0.45);
         }
         .options {
             width: 80%; /* 60% for the left side (coffee options) */
         }
         .recent-coffees {
+            font-size: 0.8em;
             width: 20%; /* 30% for the right side (recent list) */
             border-left: 2px solid #ddd;
             padding-left: 20px;
@@ -33,7 +35,7 @@
             border-radius: 5px;
         }
         .button.selected {
-            background-color: #2e8b57; /* Dark green when selected */
+            background-color: #f39e0079; /* Dark green when selected */
         }
         .button.full-width {
             width: 98%; /* Full width for 'Enter' button */
@@ -61,7 +63,7 @@
             font-size: 19px;
             line-height: 1.5;
             border-radius: 10px;
-            background-color: #e3ffe7;
+            background-color: rgba(255, 202, 111, 0.26);
         }
 
         /* Styling for the container holding coffee, milk, and syrup */
@@ -80,11 +82,46 @@
         .copyright {
             font-size: 0.69em;
         }
+
+        .header {
+            text-align: center;
+            margin-bottom: 0px;
+            margin-top: -60px;
+        }
+
+        .amazon-logo {
+            max-width: 130px;
+            margin-bottom: -50px;
+        }
+        .coffee-logo {
+            max-width: 50px;
+            margin-bottom: 0px;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            margin: 0;
+        }
+
+        .header h3 {
+            font-size: 15px;
+            color: #555;
+            margin-top: 0;
+        }
+        .options, .recent-coffees {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
+
+
     <div class="options">
-        Amazon DUB19 Daily Coffee Tracker
+        <div class="header">
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.signsallsigns.com%2Fwp-content%2Fuploads%2F2019%2F03%2Famazon-logo-transparent.png&f=1&nofb=1&ipt=f3ed8ce4ad037f34a2f8ae294bd969c132d728d4ceaa97c47a38131038090b66&ipo=images" alt="Amazon Logo" class="amazon-logo">
+            <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pngmart.com%2Ffiles%2F1%2FCoffee-Logo-PNG-Image.png&f=1&nofb=1&ipt=060cedd1d0d1ea28beaf8997e0af5e13c0c676ae5f14187fe35603355c650535&ipo=images" alt="Amazon Logo" class="coffee-logo">
+            <h3>DUB19 Coffee Tracker</h3>
+        </div>
         <h2>Select Coffee Type</h2>
             <button class="button coffee" onclick="selectOption('Americano', 'coffee', this)">Americano</button>
             <button class="button coffee" onclick="selectOption('Small Americano', 'coffee', this)">Small Americano</button>
