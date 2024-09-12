@@ -76,11 +76,15 @@
             display: inline; /* Keep all details on the same line */
             margin-left: 3px; /* Space between details */
         }
+        
+        .copyright {
+            font-size: 0.69em;
+        }
     </style>
 </head>
 <body>
-    
     <div class="options">
+        Amazon DUB19 Daily Coffee Tracker
         <h2>Select Coffee Type</h2>
             <button class="button coffee" onclick="selectOption('Americano', 'coffee', this)">Americano</button>
             <button class="button coffee" onclick="selectOption('Small Americano', 'coffee', this)">Small Americano</button>
@@ -113,6 +117,7 @@
             <button class="button full-width" onclick="exportData()">Export Data</button>
             <button class="button full-width" onclick="confirmResetDay()">Reset Day</button>
         </div>
+        <p class="copyright">&copy; 2024 Luiz Smania (@luizsmania). All rights reserved.<br>This website is for personal use only and may not be used for commercial purposes, sales, or redistribution without explicit permission.</p>
     </div>
 
     <div class="recent-coffees">

@@ -113,32 +113,50 @@ function loadCoffeeList() {
     }
 }
 
-// Export data as CSV
 function exportData() {
     let coffeeCount = {};
     let milkCount = {};
     let syrupCount = {};
 
     coffeeList.forEach(function(row) {
-        coffeeCount[row.coffee] = (coffeeCount[row.coffee] || 0) + 1;
-        milkCount[row.milk] = (milkCount[row.milk] || 0) + 1;
-        syrupCount[row.syrup] = (syrupCount[row.syrup] || 0) + 1;
+        // Count coffee types, excluding "No Coffee Selected"
+        if (row.coffee && row.coffee !== 'No Coffee Selected') {
+            coffeeCount[row.coffee] = (coffeeCount[row.coffee] || 0) + 1;
+        }
+        
+        // Count milk types, excluding "Regular Milk"
+        if (row.milk && row.milk !== 'Regular Milk') {
+            milkCount[row.milk] = (milkCount[row.milk] || 0) + 1;
+        }
+
+        // Count syrup types, excluding "No Syrup"
+        if (row.syrup && row.syrup !== 'No Syrup') {
+            syrupCount[row.syrup] = (syrupCount[row.syrup] || 0) + 1;
+        }
     });
+
+    // Helper function to sum counts
+    function getTotal(countObject) {
+        return Object.values(countObject).reduce((total, count) => total + count, 0);
+    }
 
     let csvContent = "data:text/csv;charset=utf-8,Coffee,Count\n";
     for (const coffee in coffeeCount) {
         csvContent += `${coffee},${coffeeCount[coffee]}\n`;
     }
+    csvContent += `Total,${getTotal(coffeeCount)}\n`; // Add total line for coffee
 
     csvContent += "\nMilk,Count\n";
     for (const milk in milkCount) {
         csvContent += `${milk},${milkCount[milk]}\n`;
     }
+    csvContent += `Total,${getTotal(milkCount)}\n`; // Add total line for milk
 
     csvContent += "\nSyrup,Count\n";
     for (const syrup in syrupCount) {
         csvContent += `${syrup},${syrupCount[syrup]}\n`;
     }
+    csvContent += `Total,${getTotal(syrupCount)}\n`; // Add total line for syrup
 
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
@@ -147,6 +165,8 @@ function exportData() {
     document.body.appendChild(link);
     link.click();
 }
+
+
 
 // Confirm and reset the day
 function confirmResetDay() {
