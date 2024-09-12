@@ -50,9 +50,13 @@ function resetSelections() {
 
 function updateCoffeeList() {
     const coffeeListElement = document.getElementById('coffeeList');
+    const coffeeCountElement = document.getElementById('coffeeCount'); // Reference to <h2> element
     coffeeListElement.innerHTML = '';
 
-    const recentCoffees = coffeeList.slice(-10); // show only last 10
+    // Update the <h2> element with the count of total coffees made
+    coffeeCountElement.textContent = `Recent Coffees - Total: ${coffeeList.length}`;
+
+    const recentCoffees = coffeeList.slice(-999); // show only last 10
     recentCoffees.forEach(coffee => {
         let listItemText = `${coffee.coffee}`;
 

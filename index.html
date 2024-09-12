@@ -56,8 +56,11 @@
     </style>
 </head>
 <body>
+    
     <div class="options">
         <h2>Select Coffee Type</h2>
+            <button class="button coffee" onclick="selectOption('Americano', 'coffee', this)">Americano</button>
+            <button class="button coffee" onclick="selectOption('Small Americano', 'coffee', this)">Small Americano</button>
             <button class="button coffee" onclick="selectOption('Latte', 'coffee', this)">Latte</button>
             <button class="button coffee" onclick="selectOption('Cappuccino', 'coffee', this)">Cappuccino</button>
             <button class="button coffee" onclick="selectOption('Flat White', 'coffee', this)">Flat White</button>
@@ -90,7 +93,7 @@
     </div>
 
     <div class="recent-coffees">
-        <h2>Recent Coffees</h2>
+        <h2 id="coffeeCount">Recent Coffees - Total: 0</h2>
         <ul id="coffeeList"></ul>
     </div>
 
