@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+        .options {
+            width: 60%; /* 60% for the left side (coffee options) */
+        }
+        .recent-coffees {
+            width: 30%; /* 30% for the right side (recent list) */
+            border-left: 2px solid #ddd;
+            padding-left: 20px;
+        }
+        .button {
+            display: inline-block; /* For two buttons side by side */
+            width: 48%; /* Adjust to fit side by side */
+            padding: 20px;
+            margin: 5px;
+            font-size: 24px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .button.full-width {
+            width: 98%; /* Full width for 'Enter' button */
+            margin: 10px 0;
+        }
+        h2 {
+            margin-top: 30px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="options">
+        <h2>Select Coffee Type</h2>
+        <button class="button" onclick="selectOption('Latte')">Latte</button>
+        <button class="button" onclick="selectOption('Cappuccino')">Cappuccino</button>
+        <button class="button" onclick="selectOption('Flat White')">Flat White</button>
+        <button class="button" onclick="selectOption('Double Espresso')">Double Espresso</button>
+        <button class="button" onclick="selectOption('Single Espresso')">Single Espresso</button>
+        <button class="button" onclick="selectOption('Matcha Latte')">Matcha Latte</button>
+        <button class="button" onclick="selectOption('Chai Latte')">Chai Latte</button>
+        <button class="button" onclick="selectOption('Hot Chocolate')">Hot Chocolate</button>
+        <button class="button" onclick="selectOption('Mocha')">Mocha</button>
+        <button class="button" onclick="selectOption('Tea')">Tea</button>
+        <button class="button" onclick="selectOption('Iced Latte')">Iced Latte</button>
+        <button class="button" onclick="selectOption('Iced Americano')">Iced Americano</button>
+        <button class="button" onclick="selectOption('Vietnamese')">Vietnamese</button>
+        <button class="button" onclick="selectOption('Afogatto')">Afogatto</button>
+
+        <h2>Select Milk Type</h2>
+        <button class="button" onclick="selectOption('Oat Milk')">Oat Milk</button>
+        <button class="button" onclick="selectOption('Coconut Milk')">Coconut Milk</button>
+        <button class="button" onclick="selectOption('Almond Milk')">Almond Milk</button>
+
+        <h2>Select Syrup (Optional)</h2>
+        <button class="button" onclick="selectOption('Caramel')">Caramel</button>
+        <button class="button" onclick="selectOption('Hazelnut')">Hazelnut</button>
+        <button class="button" onclick="selectOption('Vanilla')">Vanilla</button>
+        
+        <button class="button full-width" onclick="addCoffee()">Enter</button>
+
+                <div class="controls">
+            <button class="button full-width" onclick="exportData()">Export Data</button>
+            <button class="button full-width" onclick="confirmResetDay()">Reset Day</button>
+        </div>
+    </div>
+
+    <div class="recent-coffees">
+        <h2>Recent Coffees</h2>
+        <ul id="coffeeList"></ul>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
