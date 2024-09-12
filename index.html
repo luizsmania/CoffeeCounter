@@ -12,7 +12,7 @@
             padding: 20px;
         }
         .options {
-            width: 70%; /* 60% for the left side (coffee options) */
+            width: 80%; /* 60% for the left side (coffee options) */
         }
         .recent-coffees {
             width: 20%; /* 30% for the right side (recent list) */
@@ -53,6 +53,29 @@
             margin: 10px 0;
             font-size: 18px;
         }
+
+        /* General styling for the coffee list items */
+        #coffeeList li {
+            margin: 15px 0;
+            padding: 10px;
+            font-size: 19px;
+            line-height: 1.5;
+            border-radius: 10px;
+            background-color: #e3ffe7;
+        }
+
+        /* Styling for the container holding coffee, milk, and syrup */
+        #coffeeList div {
+            display: flex;
+            align-items: center;
+            margin-bottom: 4px; /* Space below the coffee details */
+        }
+
+        /* Styling for individual details within the container */
+        #coffeeList span:not(.time) {
+            display: inline; /* Keep all details on the same line */
+            margin-left: 3px; /* Space between details */
+        }
     </style>
 </head>
 <body>
@@ -75,7 +98,7 @@
             <button class="button coffee" onclick="selectOption('Iced Americano', 'coffee', this)">Iced Americano</button>
             <button class="button coffee" onclick="selectOption('Vietnamese', 'coffee', this)">Vietnamese</button>
             <button class="button coffee" onclick="selectOption('Afogatto', 'coffee', this)">Afogatto</button>
-        <h2>Select Milk Type</h2>
+        <h2>Select Milk Type (Optional)</h2>
         <button class="button milk" onclick="selectOption('Oat Milk', 'milk', this)">Oat Milk</button>
         <button class="button milk" onclick="selectOption('Coconut Milk', 'milk', this)">Coconut Milk</button>
 	<button class="button milk" onclick="selectOption('Almond Milk', 'milk', this)">Almond Milk</button>

@@ -30,14 +30,14 @@ function addCoffee() {
     const coffeeDetails = {
         coffee: selectedCoffee || 'No Coffee Selected',
         milk: selectedMilk || 'Regular Milk',
-        syrup: selectedSyrup || ''  // Empty string if no syrup is selected
+        syrup: selectedSyrup || 'No Syrup',
+        time: new Date().toLocaleTimeString() // Get the current time in HH:MM:SS format
     };
 
     coffeeList.push(coffeeDetails);
     updateCoffeeList();
     saveCoffeeList();
     resetSelections();
-
     // Scroll to the top of the page
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -60,27 +60,43 @@ function updateCoffeeList() {
     coffeeCountElement.textContent = `Recent Coffees - Total: ${coffeeList.length}`;
 
     // Slice the last 10 coffees and reverse them to show the most recent at the top
-    const recentCoffees = coffeeList.slice(-10).reverse();
+    const recentCoffees = coffeeList.slice(-999).reverse();
 
     recentCoffees.forEach(coffee => {
-        let listItemText = `${coffee.coffee}`;
+        // Start with the coffee type
+        let listItemText = coffee.coffee;
 
-        // Check if milk is present and not "Regular Milk"
+        // Add milk if present and not "Regular Milk"
         if (coffee.milk && coffee.milk !== 'Regular Milk') {
             listItemText += ` with ${coffee.milk}`;
         }
 
-        // Check if syrup is present and not "No Syrup"
+        // Add syrup if present and not "No Syrup"
         if (coffee.syrup && coffee.syrup !== 'No Syrup') {
             listItemText += ` and ${coffee.syrup}`;
         }
 
+        // Create a new <li> element
         const listItem = document.createElement('li');
-        listItem.textContent = listItemText;
+
+        // Add the text content
+        listItem.innerHTML = listItemText;
+
+        // Add the time when the coffee was made, styled separately
+        if (coffee.time) {
+            const timeText = document.createElement('span');
+            timeText.textContent = ` at ${coffee.time}`;
+            timeText.style.fontSize = '0.7em'; // Smaller font size
+            timeText.style.color = 'rgba(0, 0, 0, 0.65)'; // Less opacity
+            timeText.style.display = 'block'; // New line
+            timeText.style.marginTop = '1px'; // Space above the time
+            listItem.appendChild(timeText);
+        }
+
+        // Append the list item to the coffee list
         coffeeListElement.appendChild(listItem);
     });
 }
-
 
 
 
