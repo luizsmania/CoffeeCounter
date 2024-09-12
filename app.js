@@ -138,53 +138,50 @@ function exportData() {
     let syrupCount = {};
 
     coffeeList.forEach(function(row) {
-        // Count coffee types, excluding "No Coffee Selected"
-        if (row.coffee && row.coffee !== 'No Coffee Selected') {
-            coffeeCount[row.coffee] = (coffeeCount[row.coffee] || 0) + 1;
+        if (row.coffee !== 'No Coffee Selected') {
+            coffeeCount[row.coffee]=(coffeeCount[row.coffee] || 0) + 1;
         }
-        
-        // Count milk types, excluding "Regular Milk"
-        if (row.milk && row.milk !== 'Regular Milk') {
-            milkCount[row.milk] = (milkCount[row.milk] || 0) + 1;
+        if (row.milk !== 'Regular Milk') {
+            milkCount[row.milk]=(milkCount[row.milk] || 0) + 1;
         }
-
-        // Count syrup types, excluding "No Syrup"
-        if (row.syrup && row.syrup !== 'No Syrup') {
-            syrupCount[row.syrup] = (syrupCount[row.syrup] || 0) + 1;
+        if (row.syrup !== 'No Syrup') {
+            syrupCount[row.syrup]=(syrupCount[row.syrup] || 0) + 1;
         }
     });
 
-    // Helper function to sum counts
-    function getTotal(countObject) {
-        return Object.values(countObject).reduce((total, count) => total + count, 0);
-    }
-
-    let csvContent = "data:text/csv;charset=utf-8,Coffee,Count\n";
+    let csvContent = "data:text/csv;charset=utf-8,Coffee - Count\n";
     for (const coffee in coffeeCount) {
-        csvContent += `${coffee},${coffeeCount[coffee]}\n`;
+        csvContent += `${coffee}=${coffeeCount[coffee]}\n`;
     }
-    csvContent += `Total,${getTotal(coffeeCount)}\n`; // Add total line for coffee
 
-    csvContent += "\nMilk,Count\n";
+    csvContent += "\nMilk - Count\n";
     for (const milk in milkCount) {
-        csvContent += `${milk},${milkCount[milk]}\n`;
+        csvContent += `${milk}=${milkCount[milk]}\n`;
     }
-    csvContent += `Total,${getTotal(milkCount)}\n`; // Add total line for milk
 
-    csvContent += "\nSyrup,Count\n";
+    csvContent += "\nSyrup - Count\n";
     for (const syrup in syrupCount) {
-        csvContent += `${syrup},${syrupCount[syrup]}\n`;
+        csvContent += `${syrup}=${syrupCount[syrup]}\n`;
     }
-    csvContent += `Total,${getTotal(syrupCount)}\n`; // Add total line for syrup
 
+    // Generate the current date in format DD/MM/YYYY
+    const today = new Date();
+    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+    const year = today.getFullYear();
+    const formattedDate = `${day}-${month}-${year}`;
+
+    // Create the filename with the formatted date
+    const filename = `${formattedDate} Coffee Log.csv`;
+
+    // Encode CSV content and trigger download
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "coffee_log.csv");
+    link.setAttribute("download", filename); // Use the generated filename
     document.body.appendChild(link);
     link.click();
 }
-
 
 
 // Confirm and reset the day
