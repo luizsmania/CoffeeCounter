@@ -149,15 +149,16 @@
         <button class="button syrup" onclick="selectOption('Hazelnut', 'syrup', this)">Hazelnut</button>
 	<button class="button syrup" onclick="selectOption('Vanilla', 'syrup', this)">Vanilla</button>
         <!-- Add other syrup buttons similarly -->
-        <button class="button full-width" onclick="addCoffee()">Enter</button>
+       
         <div class="controls">
             <button class="button full-width" onclick="exportData()">Export Data</button>
             <button class="button full-width" onclick="confirmResetDay()">Reset Day</button>
         </div>
         <p class="copyright">&copy; 2024 Luiz Smania (@luizsmania). All rights reserved.<br>This website is for personal use only and may not be used for commercial purposes, sales, or redistribution without explicit permission.</p>
     </div>
-
+    
     <div class="recent-coffees">
+        <button class="button full-width" onclick="addCoffee()">Enter</button>
         <h2 id="coffeeCount">Recent Coffees - Total: 0</h2>
         <ul id="coffeeList"></ul>
     </div>
