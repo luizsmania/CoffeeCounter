@@ -1,6 +1,7 @@
 let selectedCoffee = '';
 let selectedMilk = '';
 let selectedSyrup = '';
+let selectedExtra = '';
 let coffeeList = [];
 
 // Load the saved coffee list from localStorage when the page is loaded
@@ -21,8 +22,10 @@ function selectOption(option, category, buttonElement) {
             selectedMilk = '';
         } else if (category === 'syrup') {
             selectedSyrup = '';
+        } else if (category === 'extra') {
+            selectedExtra = '';
         }
-    } else {
+            } else {
         // Deselect any previously selected buttons in the same category
         document.querySelectorAll(`.button.${category}`).forEach(btn => btn.classList.remove('selected'));
         
@@ -34,6 +37,8 @@ function selectOption(option, category, buttonElement) {
             selectedMilk = option;
         } else if (category === 'syrup') {
             selectedSyrup = option;
+        } else if (category === 'extra') {
+            selectedExtra = option;
         }
     }
 }
@@ -43,6 +48,7 @@ function addCoffee() {
         coffee: selectedCoffee || 'No Coffee Selected',
         milk: selectedMilk || 'Regular Milk',
         syrup: selectedSyrup || 'No Syrup',
+        extra: selectedExtra || 'No Extra',
         time: new Date().toLocaleTimeString() // Get the current time in HH:MM:SS format
     };
 
@@ -75,6 +81,7 @@ function resetSelections() {
     selectedCoffee = '';
     selectedMilk = '';
     selectedSyrup = '';
+    selectedExtra = '';
 
     // Remove the 'selected' class from all buttons
     document.querySelectorAll('.button').forEach(btn => btn.classList.remove('selected'));
@@ -102,6 +109,12 @@ function updateCoffeeList() {
         if (coffee.syrup && coffee.syrup !== 'No Syrup') {
             listItemText += ` and ${coffee.syrup}`;
         }
+
+        // Check if syrup is present and not "No Syrup"
+        if (coffee.extra && coffee.extra !== 'No Extra') {
+            listItemText += ` and ${coffee.extra}`;
+        }
+
 
         const listItem = document.createElement('li');
         listItem.innerHTML = `
@@ -135,6 +148,7 @@ function exportData() {
     let coffeeCount = {};
     let milkCount = {};
     let syrupCount = {};
+    let extraCount = {};
 
     coffeeList.forEach(function(row) {
         if (row.coffee !== 'No Coffee Selected') {
@@ -145,6 +159,9 @@ function exportData() {
         }
         if (row.syrup !== 'No Syrup') {
             syrupCount[row.syrup]=(syrupCount[row.syrup] || 0) + 1;
+        }
+        if (row.extra !== 'No Extra') {
+            extraCount[row.extra]=(extraCount[row.extra] || 0) + 1;
         }
     });
 
@@ -161,6 +178,11 @@ function exportData() {
     csvContent += "\nSyrup - Count\n";
     for (const syrup in syrupCount) {
         csvContent += `${syrup}=${syrupCount[syrup]}\n`;
+    }
+
+    csvContent += "\nExtra - Count\n";
+    for (const extra in extraCount) {
+        csvContent += `${extra}=${extraCount[extra]}\n`
     }
 
     // Generate the current date in format DD/MM/YYYY
