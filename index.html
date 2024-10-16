@@ -189,12 +189,12 @@
                 const weatherDescription = data.weather[0].description;
                 const temperature = data.main.temp;
                 const currentTime = new Date();
-                const greeting = currentTime.getHours() < 12 ? "Good Morning" : 
-                                 currentTime.getHours() < 18 ? "Good Afternoon" : 
-                                 "Good Evening";
+                const greeting = currentTime.getHours() < 12 ? "Good Morning!" : 
+                                 currentTime.getHours() < 18 ? "Good Afternoon!" : 
+                                 "Good Evening!";
     
                 document.getElementById('weather-info').innerText = 
-                    `${greeting}, Dublin weather today: ${weatherDescription}, temperature ${temperature} degrees Celsius.`;
+                    `${greeting}, Dublin weather today: ${weatherDescription}, ${temperature}°C.`;
             })
             .catch(error => {
                 document.getElementById('weather-info').innerText = "Could not fetch weather data.";
