@@ -143,7 +143,6 @@
             <button class="button coffee" onclick="selectOption('Iced Latte', 'coffee', this)">Iced Latte</button>
             <button class="button coffee" onclick="selectOption('Iced Americano', 'coffee', this)">Iced Americano</button>
             <button class="button coffee" onclick="selectOption('Vietnamese', 'coffee', this)">Vietnamese</button>
-            <button class="button coffee" onclick="selectOption('Afogatto', 'coffee', this)">Afogatto</button>
             <button class="button coffee" onclick="selectOption('Pumpkin Spiced Latte', 'coffee', this)">Pumpkin Spiced Latte</button>
 
         <h2>Select Milk Type (Optional)</h2>
@@ -176,7 +175,7 @@
     <script>
         const apiKey = 'YOUR_API_KEY'; // Replace with your OpenWeatherMap API key
         const city = 'Dublin';
-        const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=Dublin&appid=604b3b10dc1bd50d0c79ac19718d5c7e&units=metric`;
     
         fetch(url)
             .then(response => {
