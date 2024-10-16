@@ -113,25 +113,45 @@
             margin-top: 20px;
         }
         #weather-info {
-            font-size: 25px;
+            font-size: 22px;
+            color: rgba(0, 0, 0, 0.5);
         }
         #conversionRate {
             margin-top: -20px;
-            font-size: 23px;
-            color: rgba(0, 0, 0, 1);
+            font-size: 22px;
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        .api_info {
+            position: absolute;
+            margin-top: -45px;
+            margin-left: -15px;
+            font-size: 1px;
+        }
+
+        .coffeetime {
+            position: absolute;
+            margin-top: 15%;
+            margin-left: -10%;
+            width: 1000px;
+            height: auto;
+            visibility: hidden;
         }
         
     </style>
 </head>
 <body>
-
+    <div class="api_info">
+        <p id="weather-info">Loading weather...</p>
+        <div id="conversionRate">Fetching conversion rate...</div>
+    </div>
 
     <div class="options">
         <div class="header">
             <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.signsallsigns.com%2Fwp-content%2Fuploads%2F2019%2F03%2Famazon-logo-transparent.png&f=1&nofb=1&ipt=f3ed8ce4ad037f34a2f8ae294bd969c132d728d4ceaa97c47a38131038090b66&ipo=images" alt="Amazon Logo" class="amazon-logo">
             <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pngmart.com%2Ffiles%2F1%2FCoffee-Logo-PNG-Image.png&f=1&nofb=1&ipt=060cedd1d0d1ea28beaf8997e0af5e13c0c676ae5f14187fe35603355c650535&ipo=images" alt="Amazon Logo" class="coffee-logo">
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.tenor.co%2Fimages%2F943f2f95e1d8312e86527401ffa303ed%2Fraw&f=1&nofb=1&ipt=3cabfcee519350db25d95dca616c561e73ba3600e31bd596fd67030832bf59b3&ipo=images" alt="" srcset="" class="coffeetime">
             <h3>DUB19 Coffee Tracker</h3>
-            <div><p id="weather-info">Loading weather...</p><div id="conversionRate">Fetching conversion rate...</div></div>
         </div>
         <h2>Select Coffee Type</h2>
             <button class="button coffee" onclick="selectOption('Americano', 'coffee', this)">Americano</button>
@@ -194,12 +214,17 @@
                 const weatherDescription = data.weather[0].description;
                 const temperature = data.main.temp;
                 const currentTime = new Date();
+    
+                // Get the day of the week and format date as DD/MM/YYYY
+                const options = { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric' };
+                const today = currentTime.toLocaleDateString('en-GB', options); // e.g., "Wednesday, 16/10/2024"
+    
                 const greeting = currentTime.getHours() < 12 ? "Good Morning!" : 
                                  currentTime.getHours() < 18 ? "Good Afternoon!" : 
                                  "Good Evening!";
     
-                document.getElementById('weather-info').innerText = 
-                    `${greeting} Dublin weather today: ${weatherDescription}, ${temperature}°C.`;
+                document.getElementById('weather-info').innerHTML = 
+                    `${today}<br>${greeting}<br>Dublin weather today: ${weatherDescription}, ${temperature}°C.`;
             })
             .catch(error => {
                 document.getElementById('weather-info').innerText = "Could not fetch weather data.";
@@ -211,6 +236,7 @@
             location.reload();
         }, 7200000); // 2 hours in milliseconds
     </script>
+    
     <script>
         async function fetchConversionRate() {
             const apiKey = 'ycy4uv9Yrae_eghN4r2l'; // Your actual API key
@@ -225,7 +251,7 @@
                 }
                 const data = await response.json();
                 const rate = data.quotes[0].mid.toFixed(2); // Format to two decimal places
-                document.getElementById('conversionRate').textContent = `1€ = ${rate} BRL$`;
+                document.getElementById('conversionRate').textContent = `1€ = ${rate} BRL`;
             } catch (error) {
                 console.error('Error fetching the conversion rate:', error);
                 document.getElementById('conversionRate').textContent = 'Error fetching conversion rate.';

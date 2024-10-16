@@ -229,3 +229,25 @@ function resetDay() {
     updateCoffeeList();
     saveCoffeeList(); // Save the reset state
 }
+
+function checkCoffeeTime() {
+    const currentTime = new Date();
+    const minutes = currentTime.getMinutes();
+    const hours = currentTime.getHours();
+
+    // Check if the minutes equal 7
+    if (minutes === 7) {
+        const coffeeElement = document.querySelector('.coffeetime');
+        
+        // Set the visibility to visible
+        coffeeElement.style.visibility = 'visible';
+
+        // Hide it after 3 seconds
+        setTimeout(() => {
+            coffeeElement.style.visibility = 'hidden';
+        }, 2000); // 3000 milliseconds = 3 seconds
+    }
+}
+
+// Call the function every minute to check for coffee time
+setInterval(checkCoffeeTime, 60000); // 60000 milliseconds = 1 minute
