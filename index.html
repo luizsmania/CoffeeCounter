@@ -174,27 +174,37 @@
 
     <script src="app.js"></script>
     <script>
-        const apiKey = '1c7369e6b5a77fed44023317d66950dd'; // Replace with your OpenWeatherMap API key
+        const apiKey = 'YOUR_API_KEY'; // Replace with your OpenWeatherMap API key
         const city = 'Dublin';
-        const url = `https://api.openweathermap.org/data/2.5/weather?q=Dublin&appid=604b3b10dc1bd50d0c79ac19718d5c7e&units=metric`;
-
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    
         fetch(url)
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
             .then(data => {
                 const weatherDescription = data.weather[0].description;
                 const temperature = data.main.temp;
                 const currentTime = new Date();
-                const greeting = currentTime.getHours() < 12 ? "Good Morning!" : 
-                                 currentTime.getHours() < 18 ? "Good Afternoon!" : 
-                                 "Good Evening!";
-
+                const greeting = currentTime.getHours() < 12 ? "Good Morning" : 
+                                 currentTime.getHours() < 18 ? "Good Afternoon" : 
+                                 "Good Evening";
+    
                 document.getElementById('weather-info').innerText = 
-                    `${greeting} Dublin weather today: ${weatherDescription}, temperature ${temperature}°C`;
+                    `${greeting}, Dublin weather today: ${weatherDescription}, temperature ${temperature} degrees Celsius.`;
             })
             .catch(error => {
                 document.getElementById('weather-info').innerText = "Could not fetch weather data.";
                 console.error("Error fetching weather data:", error);
             });
+    
+        // Reload the page every 2 hours (7200000 milliseconds)
+        setTimeout(() => {
+            location.reload();
+        }, 7200000); // 2 hours in milliseconds
     </script>
 </body>
 </html>
