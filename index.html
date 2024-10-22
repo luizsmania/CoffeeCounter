@@ -144,7 +144,9 @@
     <div class="api_info">
         <p id="weather-info">Loading weather...</p>
         <div id="conversionRate">Fetching conversion rate...</div><div id="trendSymbol"></div>
+        
     </div>
+    
 
     <div class="options">
         <div class="header">
@@ -258,19 +260,21 @@
                 if (data.result && data.result.BRL) {
                     const rate = Math.floor(data.result.BRL * 100) / 100; // Truncate to two decimal places
     
-                    document.getElementById('conversionRate').textContent = `1€ = ${rate} BRL`;
-    
-                    // Compare with previous rate
+                    // Prepare the conversion rate text with the trend symbol
+                    let trendSymbol = '';
                     if (previousRate !== null) {
-                        const trendSymbol = document.getElementById('trendSymbol');
                         if (rate > previousRate) {
-                            trendSymbol.textContent = '📈'; // Up arrow symbol
+                            trendSymbol = ' 📈'; // Up arrow symbol
                         } else if (rate < previousRate) {
-                            trendSymbol.textContent = '📉'; // Down arrow symbol
+                            trendSymbol = ' 📉'; // Down arrow symbol
                         } else {
-                            trendSymbol.textContent = '~'; // No change
+                            console.log("No change in rate");
+                            trendSymbol = ''; // No change
                         }
                     }
+    
+                    // Update the conversion rate and include the trend symbol
+                    document.getElementById('conversionRate').textContent = `1€ = ${rate} BRL${trendSymbol}`;
     
                     // Update previous rate
                     previousRate = rate;
@@ -285,10 +289,12 @@
             }
         }
     
-        // Fetch conversion rate every 10 seconds
+        // Fetch conversion rate every 2 minutes (120000 milliseconds)
         setInterval(fetchConversionRate, 120000);
         fetchConversionRate(); // Initial call
     </script>
+    
+
     
     
 </body>
