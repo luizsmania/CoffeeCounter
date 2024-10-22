@@ -256,7 +256,7 @@
     
                 // Access the conversion rate from the correct property
                 if (data.result && data.result.BRL) {
-                    const rate = data.result.BRL.toFixed(2); // Format to two decimal places
+                    const rate = Math.floor(data.result.BRL * 100) / 100; // Truncate to two decimal places
     
                     document.getElementById('conversionRate').textContent = `1€ = ${rate} BRL`;
     
@@ -286,7 +286,7 @@
         }
     
         // Fetch conversion rate every 10 seconds
-        setInterval(fetchConversionRate, 900000);
+        setInterval(fetchConversionRate, 120000);
         fetchConversionRate(); // Initial call
     </script>
     
