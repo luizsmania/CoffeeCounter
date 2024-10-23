@@ -261,17 +261,24 @@
                     const rate = Math.floor(data.result.BRL * 100) / 100; // Truncate to two decimal places
     
                     // Prepare the conversion rate text with the trend symbol
-                    let trendSymbol = '';
+                    let trendSymbol = ''; // Initial value
+                    let lastTrendSymbol = ''; // Store the last trend symbol
+
                     if (previousRate !== null) {
                         if (rate > previousRate) {
                             trendSymbol = ' 📈'; // Up arrow symbol
+                            lastTrendSymbol = trendSymbol; // Update last trend symbol
                         } else if (rate < previousRate) {
                             trendSymbol = ' 📉'; // Down arrow symbol
+                            lastTrendSymbol = trendSymbol; // Update last trend symbol
                         } else {
                             console.log("No change in rate");
-                            trendSymbol = ''; // No change
+                            trendSymbol = lastTrendSymbol; // Keep the last trend symbol
                         }
                     }
+
+                    // Use trendSymbol as needed
+
     
                     // Update the conversion rate and include the trend symbol
                     document.getElementById('conversionRate').textContent = `1€ = ${rate} BRL${trendSymbol}`;
