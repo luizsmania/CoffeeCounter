@@ -132,7 +132,7 @@ function updateCoffeeList() {
         // Add an event listener to the list item
         listItem.addEventListener('click', () => {
             if (coffee.backgroundColor === 'rgba(0, 128, 0, 0.6)') { // Check for rgba green
-                coffee.backgroundColor = 'rgba(0, 0, 0, 0.6)'; // Revert to original color
+                coffee.backgroundColor = 'rgba(255, 202, 111, 0.26)'; // Revert to original color
                 listItem.style.backgroundColor = coffee.backgroundColor;
             } else {
                 coffee.backgroundColor = 'rgba(0, 128, 0, 0.6)'; // Set to rgba green
