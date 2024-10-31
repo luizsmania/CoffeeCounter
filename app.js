@@ -3,12 +3,28 @@ let selectedMilk = '';
 let selectedSyrup = '';
 let selectedExtra = '';
 let coffeeList = [];
+let currentDate = new Date().toLocaleDateString();
 
 // Load the saved coffee list from localStorage when the page is loaded
 window.onload = function() {
     loadCoffeeList();
     updateCoffeeList();
+    populatePreviousLists();
 };
+function checkDateChange() {
+    const today = new Date().toLocaleDateString();
+    if (today !== currentDate) {
+        savePreviousList();
+        coffeeList = []; // Start a new list
+        currentDate = today;
+        updateCoffeeList();
+        populatePreviousLists();
+    }
+}
+
+// Call this function regularly to check for date changes
+setInterval(checkDateChange, 60000); // Check every minute
+
 
 function selectOption(option, category, buttonElement) {
     // Toggle the 'selected' class on the clicked button
@@ -248,6 +264,38 @@ function checkCoffeeTime() {
         }, 2000); // 3000 milliseconds = 3 seconds
     }
 }
+
+function savePreviousList() {
+    const savedLists = JSON.parse(localStorage.getItem('coffeeLists')) || {};
+    savedLists[currentDate] = coffeeList;
+    localStorage.setItem('coffeeLists', JSON.stringify(savedLists));
+}
+
+function loadPreviousList(date) {
+    const savedLists = JSON.parse(localStorage.getItem('coffeeLists')) || {};
+    coffeeList = savedLists[date] || [];
+    updateCoffeeList();
+}
+
+function populatePreviousLists() {
+    const previousListsElement = document.getElementById('previousLists');
+    const savedLists = JSON.parse(localStorage.getItem('coffeeLists')) || {};
+    
+    previousListsElement.innerHTML = '<option value="">Select a date</option>'; // Reset options
+
+    for (const date in savedLists) {
+        const option = document.createElement('option');
+        option.value = date;
+        option.textContent = date;
+        previousListsElement.appendChild(option);
+    }
+}
+
+
+
+
+
+
 
 // Call the function every minute to check for coffee time
 setInterval(checkCoffeeTime, 60000); // 60000 milliseconds = 1 minute
