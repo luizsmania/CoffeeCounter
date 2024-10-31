@@ -49,7 +49,8 @@ function addCoffee() {
         milk: selectedMilk || 'Regular Milk',
         syrup: selectedSyrup || 'No Syrup',
         extra: selectedExtra || 'No Extra',
-        time: new Date().toLocaleTimeString() // Get the current time in HH:MM:SS format
+        time: new Date().toLocaleTimeString(), // Get the current time in HH:MM:SS format
+        backgroundColor: 'rgba(255, 202, 111, 0.26)' // Set default color here
     };
 
     coffeeList.push(coffeeDetails);
@@ -59,6 +60,7 @@ function addCoffee() {
     // Scroll to the top of the page
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
 
 function removeCoffee(index) {
     // Show a confirmation dialog before deleting
@@ -110,11 +112,10 @@ function updateCoffeeList() {
             listItemText += ` and ${coffee.syrup}`;
         }
 
-        // Check if syrup is present and not "No Syrup"
+        // Check if extra is present and not "No Extra"
         if (coffee.extra && coffee.extra !== 'No Extra') {
             listItemText += ` and ${coffee.extra}`;
         }
-
 
         const listItem = document.createElement('li');
         listItem.innerHTML = `
@@ -124,18 +125,22 @@ function updateCoffeeList() {
             </span>
             <button onclick="removeCoffee(${coffeeList.length - 1 - index})" style="font-family: Serif; font-size: 0.65em; margin-left: 0px; padding: 4px 8px; background-color: rgba(255, 0, 0, 0.5); color: black; border: 0px solid; border-radius: 3px; cursor: pointer;">Delete</button>
         `;
-        
+
+        // Set the background color based on the coffee object's property
+        listItem.style.backgroundColor = coffee.backgroundColor;
+
         // Add an event listener to the list item
         listItem.addEventListener('click', () => {
-            if (listItem.style.backgroundColor === 'rgba(0, 128, 0, 0.3)') { // Check for rgba green
-                listItem.style.backgroundColor = 'rgba(255, 202, 111, 0.26)'; // Revert to original color
+            if (coffee.backgroundColor === 'rgba(0, 128, 0, 0.6)') { // Check for rgba green
+                coffee.backgroundColor = 'rgba(0, 0, 0, 0.6)'; // Revert to original color
+                listItem.style.backgroundColor = coffee.backgroundColor;
             } else {
-                listItem.style.backgroundColor = 'rgba(0, 128, 0, 0.3)'; // Set to rgba green
+                coffee.backgroundColor = 'rgba(0, 128, 0, 0.6)'; // Set to rgba green
+                listItem.style.backgroundColor = coffee.backgroundColor;
             }
         });
-        
+
         coffeeListElement.appendChild(listItem);
-        
     });
 }
 
