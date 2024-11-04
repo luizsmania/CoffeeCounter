@@ -92,7 +92,7 @@ function updateCoffeeList() {
     // Display count and date for selected coffees
     coffeeCountElement.textContent = `Coffees on ${selectedDate} - Total: ${coffeeList.length}`;
 
-    const recentCoffees = coffeeList.slice(-10).reverse();
+    const recentCoffees = coffeeList.slice(-999).reverse();
     recentCoffees.forEach((coffee, index) => {
         let listItemText = `${coffee.coffee}`;
         if (coffee.milk && coffee.milk !== 'Regular Milk') listItemText += ` with ${coffee.milk}`;
