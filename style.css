@@ -7,12 +7,14 @@ body {
 }
 .options {
     width: 80%; /* 60% for the left side (coffee options) */
+    font-family: 'Courier New', Courier, monospace;
 }
 .recent-coffees {
     font-size: 0.8em;
     width: 20%; /* 30% for the right side (recent list) */
     border-left: 2px solid #ddd;
     padding-left: 20px;
+    font-family: "Playwrite GB S";
 }
 .button {
     display: inline-block; /* For two buttons side by side */
@@ -26,6 +28,7 @@ body {
     color: rgb(0, 0, 0);
     border: none;
     border-radius: 5px;
+    font-family: "Playwrite GB S";
 }
 .button.selected {
     background-color: #f39e0079; /* Dark green when selected */
@@ -140,6 +143,7 @@ select#dateDropdown {
     border: none; /* No border */
     border-radius: 5px; /* Rounded corners */
     margin: 10px 0; /* Margin similar to button */
+    font-family: 'Courier New', Courier, monospace;
 }
 
 select#dateDropdown:focus {
@@ -151,4 +155,25 @@ label {
     font-size: 22px; /* Adjust as needed */
     margin-right: 10px; /* Space between label and dropdown */
     color: #000000; /* Color of the label text */
+    font-family: 'Courier New', Courier, monospace;
+}
+
+
+.class {
+    font-size: 15px;
+}
+
+.oldListMessage p{
+    font-size: 20px;
+
+}
+
+#coffeeCount {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+}
+
+.api_info {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 600;
 }

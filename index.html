@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coffee Tracker</title>
     <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton+SC&family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Playwrite+GB+S:ital,wght@0,100..400;1,100..400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -65,7 +68,7 @@
         <select id="dateDropdown" onchange="changeDate(event)">
             <!-- Options will be populated here -->
         </select>
-        <p id="oldListMessage" style="color: red; display: none;">Looks like you're checking out yesterday's coffee run. Switch to today's date to see the fresh brew!</p>
+        <p id="oldListMessage" class="oldListMessage" style="color: red; display: none;">Looks like you're checking out yesterday's coffee run. Switch to today's date to see the fresh brew!</p>
         <button class="button full-width" onclick="addCoffee()">Enter</button>
         <h2 id="coffeeCount">Recent Coffees - Total: 0</h2>
         <ul id="coffeeList"></ul>
