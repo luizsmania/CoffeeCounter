@@ -13,15 +13,15 @@ body {
     font-size: 0.8em;
     width: 20%; /* 30% for the right side (recent list) */
     border-left: 2px solid #ddd;
-    padding-left: 20px;
+    padding-left: 10px;
     font-family: "Playwrite GB S";
 }
 .button {
     display: inline-block; /* For two buttons side by side */
-    width: 48%; /* Adjust to fit side by side */
-    padding: 20px;
+    width: 30%; /* Adjust to fit side by side */
+    padding: 10px;
     margin: 5px;
-    font-size: 34px;
+    font-size: 24px;
     cursor: pointer;
     text-align: center;
     background-color: #dddddd; /* Default button color */
