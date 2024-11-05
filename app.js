@@ -471,3 +471,31 @@ fetch(url)
 setTimeout(() => {
     location.reload();
 }, 7200000); // 2 hours in milliseconds == 7200000
+
+const repoOwner = 'luizsmania';   // Replace with your GitHub username
+const repoName = 'CoffeeCounter';   // Replace with your GitHub repository name
+let lastCommit = null;
+
+async function checkForNewCommit() {
+  try {
+    // Fetch the latest commit info from the GitHub API
+    const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/commits?per_page=1`);
+    const commits = await response.json();
+
+    // Get the latest commit hash
+    const latestCommit = commits[0].sha;
+
+    // If the commit hash is different from the one we have stored, refresh the page
+    if (lastCommit && latestCommit !== lastCommit) {
+      window.location.reload();  // Refresh the page
+    }
+
+    // Store the latest commit hash
+    lastCommit = latestCommit;
+  } catch (error) {
+    console.error('Error checking for new commit:', error);
+  }
+}
+
+// Poll every 60 seconds (60000 ms)
+setInterval(checkForNewCommit, 60000);

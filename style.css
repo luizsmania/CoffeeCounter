@@ -11,9 +11,9 @@ body {
 }
 .recent-coffees {
     font-size: 0.8em;
-    width: 20%; /* 30% for the right side (recent list) */
+    width: 25%; /* 30% for the right side (recent list) */
     border-left: 2px solid #ddd;
-    padding-left: 10px;
+    padding-left: 0px;
     font-family: "Playwrite GB S";
 }
 .button {
@@ -21,8 +21,9 @@ body {
     width: 31%; /* Adjust to fit side by side */
     padding: 10px;
     margin: 5px;
+    margin-right: 10px;
     height: 4em;
-    font-size: 24px;
+    font-size: 26px;
     cursor: pointer;
     text-align: center;
     background-color: #dddddd; /* Default button color */
