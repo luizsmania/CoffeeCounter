@@ -18,9 +18,10 @@ body {
 }
 .button {
     display: inline-block; /* For two buttons side by side */
-    width: 30%; /* Adjust to fit side by side */
+    width: 32%; /* Adjust to fit side by side */
     padding: 10px;
     margin: 5px;
+    height: 5.5%;
     font-size: 24px;
     cursor: pointer;
     text-align: center;
