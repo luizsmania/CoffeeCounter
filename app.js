@@ -92,7 +92,9 @@ function updateCoffeeList() {
     // Display count and date for selected coffees
     coffeeCountElement.textContent = `Coffees on ${selectedDate} - Total: ${coffeeList.length}`;
 
-    const recentCoffees = coffeeList.slice(-999).reverse();
+    const recentCoffees = coffeeList.slice(-999).reverse(); // Get the most recent coffees
+
+    // Iterate over all coffees and append them to the list
     recentCoffees.forEach((coffee, index) => {
         let listItemText = `${coffee.coffee}`;
         if (coffee.milk && coffee.milk !== 'Regular Milk') listItemText += ` with ${coffee.milk}`;
@@ -107,17 +109,40 @@ function updateCoffeeList() {
             </span>
             <button onclick="removeCoffee(${coffeeList.length - 1 - index})" style="font-family: Serif; font-size: 0.65em; margin-left: 0px; padding: 4px 8px; background-color: rgba(255, 0, 0, 0.5); color: black; border: 0px solid; border-radius: 3px; cursor: pointer;">Delete</button>
         `;
+
+        // Add transition for slide-in and fade-in effects
+        listItem.style.transition = 'transform 0.5s ease-out, opacity 0.5s ease-out';
+        listItem.style.opacity = 0;  // Initially hide the item
+        listItem.style.transform = 'translateX(-100%)';  // Start off to the left
+
+        // Set the initial background color
         listItem.style.backgroundColor = coffee.backgroundColor;
 
-        // Toggle item color on click
+        // Toggle item color on click with smooth transition
         listItem.addEventListener('click', () => {
             coffee.backgroundColor = coffee.backgroundColor === 'rgba(0, 128, 0, 0.3)' ? 'rgba(255, 202, 111, 0.26)' : 'rgba(0, 128, 0, 0.3)';
             listItem.style.backgroundColor = coffee.backgroundColor;
         });
 
+        // Append the item to the list
         coffeeListElement.appendChild(listItem);
+
+        // Trigger the slide-in and fade-in animation only for the last (newest) item
+        if (index === 0) { // Apply animation only to the most recent (last) item
+            setTimeout(() => {
+                listItem.style.opacity = 1;  // Fade in the item
+                listItem.style.transform = 'translateX(0)';  // Slide into place
+            }, 10); // Small delay to ensure the transition applies after the item is appended
+        } else {
+            // For other items, ensure they are fully visible immediately (no animation)
+            listItem.style.opacity = 1;
+            listItem.style.transform = 'translateX(0)';
+        }
     });
 }
+
+
+
 
 // Remove a coffee from the list
 function removeCoffee(index) {
