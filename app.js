@@ -83,6 +83,9 @@ function resetSelections() {
     document.querySelectorAll('.button').forEach(btn => btn.classList.remove('selected'));
 }
 
+// Global flag to track if we just deleted a coffee
+let isDeleted = false;
+
 // Update and display the coffee list for the selected date
 function updateCoffeeList() {
     const coffeeListElement = document.getElementById('coffeeList');
@@ -110,49 +113,60 @@ function updateCoffeeList() {
             <button onclick="removeCoffee(${coffeeList.length - 1 - index})" style="font-family: Serif; font-size: 0.65em; margin-left: 0px; padding: 4px 8px; background-color: rgba(255, 0, 0, 0.5); color: black; border: 0px solid; border-radius: 3px; cursor: pointer;">Delete</button>
         `;
 
+        // Set initial background color
+        listItem.style.backgroundColor = coffee.backgroundColor;
+
         // Add transition for slide-in and fade-in effects
-        listItem.style.transition = 'transform 0.5s ease-out, opacity 0.5s ease-out';
+        listItem.style.transition = 'transform 0.5s ease-out, opacity 0.9s ease-out, background-color 0.6s ease'; // Add background-color transition
         listItem.style.opacity = 0;  // Initially hide the item
         listItem.style.transform = 'translateX(-100%)';  // Start off to the left
 
-        // Set the initial background color
-        listItem.style.backgroundColor = coffee.backgroundColor;
-
         // Toggle item color on click with smooth transition
         listItem.addEventListener('click', () => {
+            // Toggle between green and original background color
             coffee.backgroundColor = coffee.backgroundColor === 'rgba(0, 128, 0, 0.3)' ? 'rgba(255, 202, 111, 0.26)' : 'rgba(0, 128, 0, 0.3)';
-            listItem.style.backgroundColor = coffee.backgroundColor;
+            listItem.style.backgroundColor = coffee.backgroundColor;  // Apply the color change
         });
 
         // Append the item to the list
         coffeeListElement.appendChild(listItem);
 
-        // Trigger the slide-in and fade-in animation only for the last (newest) item
-        if (index === 0) { // Apply animation only to the most recent (last) item
+        // Apply animation only to the most recent (last) item when added
+        if (!isDeleted && index === 0) {  // Apply animation only if we didn't just delete
             setTimeout(() => {
                 listItem.style.opacity = 1;  // Fade in the item
                 listItem.style.transform = 'translateX(0)';  // Slide into place
             }, 10); // Small delay to ensure the transition applies after the item is appended
         } else {
-            // For other items, ensure they are fully visible immediately (no animation)
+            // For other items (not the last one), make them visible immediately without animation
             listItem.style.opacity = 1;
             listItem.style.transform = 'translateX(0)';
         }
     });
+
+    // After rendering the list, reset the delete flag
+    isDeleted = false;
 }
-
-
-
 
 // Remove a coffee from the list
 function removeCoffee(index) {
     const confirmDelete = confirm("Are you sure you want to delete this coffee?");
     if (confirmDelete) {
+        // Set the delete flag so we don't apply animation after deletion
+        isDeleted = true;
+        
+        // Remove the coffee from the list
         coffeeList.splice(index, 1);
+
+        // Update the list (without animation on the new last item)
         updateCoffeeList();
+
+        // Save the updated list
         saveCoffeeList();
     }
 }
+
+
 
 function updateDateDropdown() {
     const dropdown = document.getElementById('dateDropdown');
