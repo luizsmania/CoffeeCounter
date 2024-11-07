@@ -186,3 +186,14 @@ label {
     font-family: 'Courier New', Courier, monospace;
     font-weight: 600;
 }
+
+.patches {
+    text-decoration: none;
+    color: inherit;
+    font-size: 10px;
+}
+
+.mainpage {
+    color: blue;
+    font-size: 25px;
+}
