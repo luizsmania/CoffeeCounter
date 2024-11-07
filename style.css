@@ -45,6 +45,7 @@ body {
     margin-top: 30px;
 }
 h2 {
+    font-size: 30px;
     margin-top: 30px;
 }
 ul {
@@ -116,12 +117,12 @@ li {
     margin-top: 20px;
 }
 #weather-info {
-    font-size: 22px;
+    font-size: 23px;
     color: rgba(0, 0, 0, 0.5);
 }
 #conversionRate {
     margin-top: -20px;
-    font-size: 22px;
+    font-size: 23px;
     color: rgba(0, 0, 0, 0.5);
 }
 
@@ -129,7 +130,7 @@ li {
     position: absolute;
     margin-top: -45px;
     margin-left: -15px;
-    font-size: 1px;
+    font-size: px;
 }
 
 .coffeetime {
@@ -172,13 +173,13 @@ label {
 }
 
 .oldListMessage p{
-    font-size: 20px;
+    font-size: 30px;
 
 }
 
 #coffeeCount {
     font-family: 'Courier New', Courier, monospace;
-    font-size: 20px;
+    font-size: 25px;
 }
 
 .api_info {
