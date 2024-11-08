@@ -407,7 +407,7 @@ function checkCoffeeTime() {
         // Hide it after 3 seconds
         setTimeout(() => {
             coffeeElement.style.visibility = 'hidden';
-        }, 2000); // 3000 milliseconds = 3 seconds
+        }, 1800); // 3000 milliseconds = 3 seconds
     }
 }
 
