@@ -135,11 +135,12 @@ li {
 
 .coffeetime {
     position: absolute;
+    z-index: 1;
     margin-top: 15%;
     margin-left: -10%;
     width: 1300px;
     height: auto;
-    visibility: hidden;
+    visibility: ;
 }
 
 select#dateDropdown {
