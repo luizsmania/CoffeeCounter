@@ -1,7 +1,7 @@
 let previousRate = null;
     
 async function fetchConversionRate() {
-    const apiKey = '13d392b211-efdcd9b941-smmgjh'; // Your actual API key
+    const apiKey = '3359f83633-b085db2646-snakfb'; // Your actual API key
     const url = `https://api.fastforex.io/fetch-one?from=EUR&to=BRL&api_key=${apiKey}`;
 
     try {
