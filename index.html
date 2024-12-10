@@ -85,11 +85,11 @@
    <script>
     document.addEventListener('DOMContentLoaded', () => {
         const enterButton = document.querySelector('button[onclick="addCoffee()"]');
-        const audio = new Audio('Success.wav'); // Path to your audio file
+        const audio = new Audio('https://raw.githubusercontent.com/luizsmania/CoffeeCounter/main/Success.wav');
 
         enterButton.addEventListener('keypress', function(event) {
             if (event.key === 'Enter') {
-                event.preventDefault(); // Prevent default behavior
+                event.preventDefault(); // Prevent the default behavior
                 audio.play(); // Play the sound
             }
         });
