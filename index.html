@@ -82,17 +82,18 @@
     <script src="app.js"></script>
 
     
-    <script>
-    // Previne Enter apenas no botão específico
+   <script>
     document.addEventListener('DOMContentLoaded', () => {
         const enterButton = document.querySelector('button[onclick="addCoffee()"]');
-        
+        const audio = new Audio('Success.mp3'); // Path to your audio file
+
         enterButton.addEventListener('keypress', function(event) {
             if (event.key === 'Enter') {
-                event.preventDefault();
+                event.preventDefault(); // Prevent default behavior
+                audio.play(); // Play the sound
             }
         });
     });
-    </script>
+   </script>
 </body>
 </html>
