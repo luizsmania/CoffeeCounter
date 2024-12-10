@@ -82,6 +82,17 @@
     <script src="app.js"></script>
 
     
-    
+    <script>
+    // Previne Enter apenas no botão específico
+    document.addEventListener('DOMContentLoaded', () => {
+        const enterButton = document.querySelector('button[onclick="addCoffee()"]');
+        
+        enterButton.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+            }
+        });
+    });
+    </script>
 </body>
 </html>
