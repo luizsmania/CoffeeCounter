@@ -20,8 +20,7 @@ window.onload = function() {
         localStorage.removeItem('resetSuccess');
     }
 };
-
-  document.addEventListener("keydown", function(event) {
+document.addEventListener("keydown", function(event) {
     if (event.key === "Enter" && event.target.tagName !== "TEXTAREA") {
       event.preventDefault();
     }
