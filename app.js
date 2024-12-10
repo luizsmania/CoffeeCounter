@@ -21,6 +21,11 @@ window.onload = function() {
     }
 };
 
+  document.addEventListener("keydown", function(event) {
+    if (event.key === "Enter" && event.target.tagName !== "TEXTAREA") {
+      event.preventDefault();
+    }
+  });
 // Function to get date in DD/MM/YYYY format
 function getFormattedDate(date) {
     const day = String(date.getDate()).padStart(2, '0');
